@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/dot1"
+        android:icon="@drawable/dot"
+        android:title="dot"/>
+
+    <item android:id="@+id/dot2"
+        android:icon="@drawable/dot"
+        android:title="dot"/>
+
+    <item android:icon="@drawable/ic_camera"
+        android:id="@+id/camera"
+        android:title="camera"/>
+
+    <item android:id="@+id/dot3"
+        android:icon="@drawable/dot"
+        android:title="dot"/>
+
+    <item android:id="@+id/dot4"
+        android:icon="@drawable/dot"
+        android:title="dot"/>
+
+
+</menu>
