@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/17865/Desktop/NojotoTask/app/src/main/res/drawable/ring.xml" value="0.111" />
+        <entry key="..\:/Users/17865/Desktop/NojotoTask/app/src/main/res/layout/activity_camera.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/17865/Desktop/NojotoTask/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/17865/Desktop/NojotoTask/app/src/main/res/layout/activity_upload.xml" value="0.41904761904761906" />
+        <entry key="..\:/Users/17865/Desktop/NojotoTask/app/src/main/res/layout/home_item.xml" value="0.25" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/NojotoUI/app/src/main/res/drawable/dot.xml" value="0.218" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/NojotoUI/app/src/main/res/drawable/ic_hamburger.xml" value="0.218" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/NojotoUI/app/src/main/res/layout/activity_main.xml" value="0.27239583333333334" />
