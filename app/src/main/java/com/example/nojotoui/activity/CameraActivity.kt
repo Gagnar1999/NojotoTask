@@ -41,6 +41,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding?.ivCapture?.setOnClickListener {
             val file = File(filesDir, "test.png")
+            file.createNewFile()
             imageCapture?.takePicture(ContextCompat.getMainExecutor(this),object : ImageCapture.OnImageCapturedCallback(){
                 override fun onCaptureSuccess(image: ImageProxy) {
                     super.onCaptureSuccess(image)

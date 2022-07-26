@@ -2,11 +2,13 @@ package com.example.nojotoui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.nojotoui.databinding.ActivityUploadBinding
 import com.example.nojotoui.network.RetrofitFactory
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -39,25 +41,26 @@ class UploadActivity : AppCompatActivity() {
                 Log.d("TAG", "onCreate: request body not null")
                 val body = MultipartBody.Part.createFormData("image", file!!.name, it)
                 RetrofitFactory.apiService.uploadImage(image = body).enqueue(object :
-                    Callback<JSONObject>{
+                    Callback<JsonObject>{
                     override fun onResponse(
-                        call: Call<JSONObject>,
-                        response: Response<JSONObject>
+                        call: Call<JsonObject>,
+                        response: Response<JsonObject>
                     ) {
                         isFileUploading = false
                         Log.d("TAG", "onResponse: " + Gson().toJson(response.body()))
                         if(response.code() == 200){
-                            val success = response.body()?.getBoolean("success")
+                            val success = response.body()?.get("success")
+                            val failure = response.body()?.get("error")
                             success?.let {
-                                if(it){
-                                    Log.d("TAG", "onResponse: " + Gson().toJson(response.body()))
+                                if(it.asBoolean && failure?.asBoolean == false){
+                                    Toast.makeText(this@UploadActivity, "File Uploaded Successfully", Toast.LENGTH_SHORT).show()
                                 }
                             }
 
                         }
                     }
 
-                    override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                         Log.d("TAG", "onFailure: "+t.message)
                     }
 
