@@ -60,4 +60,8 @@ dependencies {
     // If you want to additionally use the CameraX Lifecycle library
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"
     implementation "androidx.camera:camera-view:${camerax_version}"
+    //Retrofit, OkHttp Interceptor with Gson Converter
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
 }

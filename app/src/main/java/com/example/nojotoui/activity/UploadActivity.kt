@@ -1,11 +1,22 @@
 package com.example.nojotoui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.nojotoui.databinding.ActivityUploadBinding
+import com.example.nojotoui.network.RetrofitFactory
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
+import kotlin.math.log
+
 
 class UploadActivity : AppCompatActivity() {
 
@@ -13,6 +24,7 @@ class UploadActivity : AppCompatActivity() {
         ActivityUploadBinding.inflate(layoutInflater)
     }
     var file: File? = null
+    var isFileUploading : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +33,36 @@ class UploadActivity : AppCompatActivity() {
             file = File(intent.getStringExtra("FILE"))
             Log.d("TAG", "onCreate: "+file.toString())
             Glide.with(this).load(file).into(binding.image)
+            val requestBody = file?.asRequestBody("image/*".toMediaTypeOrNull())
+            Log.d("TAG", "onCreate: "+requestBody.toString())
+            requestBody?.let {
+                Log.d("TAG", "onCreate: request body not null")
+                val body = MultipartBody.Part.createFormData("image", file!!.name, it)
+                RetrofitFactory.apiService.uploadImage(image = body).enqueue(object :
+                    Callback<JSONObject>{
+                    override fun onResponse(
+                        call: Call<JSONObject>,
+                        response: Response<JSONObject>
+                    ) {
+                        isFileUploading = false
+                        Log.d("TAG", "onResponse: " + Gson().toJson(response.body()))
+                        if(response.code() == 200){
+                            val success = response.body()?.getBoolean("success")
+                            success?.let {
+                                if(it){
+                                    Log.d("TAG", "onResponse: " + Gson().toJson(response.body()))
+                                }
+                            }
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                        Log.d("TAG", "onFailure: "+t.message)
+                    }
+
+                })
+            }
 
         } catch (e: Exception) {
             Log.d("TAG", "onCreate: "+e.message)
